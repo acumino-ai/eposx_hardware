@@ -151,6 +151,12 @@ void EposProfilePositionMode::init(hardware_interface::RobotHW &hw, ros::NodeHan
       GET_PARAM_V(sensor_nh, resolution);
       GET_PARAM_V(sensor_nh, inverted_polarity);
       encoder_resolution_ = inverted_polarity ? -resolution : resolution;
+    } else if (type == 3 /* Hall effect */) {
+        int resolution;
+        bool inverted_polarity;
+        GET_PARAM_V(sensor_nh, resolution);
+        GET_PARAM_V(sensor_nh, inverted_polarity);
+        encoder_resolution_ = inverted_polarity ? -resolution : resolution;
     } else if (type == 4 || type == 5 /* SSI ABS ENCODER */) {
       int number_of_singleturn_bits;
       bool inverted_polarity;

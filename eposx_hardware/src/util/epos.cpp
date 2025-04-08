@@ -278,6 +278,14 @@ void Epos::initSensorParameter(ros::NodeHandle &motor_nh) {
     if (inverted_polarity) {
       encoder_resolution_ = -encoder_resolution_;
     }
+  } else if (type == 3 /* Hall sensor */) {
+      bool inverted_polarity;
+      GET_PARAM_KV(sensor_nh, "resolution", encoder_resolution_);
+      GET_PARAM_V(sensor_nh, inverted_polarity);
+      VCS_NN(SetHallSensorParameter, epos_handle_, inverted_polarity);
+      if (inverted_polarity) {
+        encoder_resolution_ = -encoder_resolution_;
+      }
   } else if (type == 4 || type == 5 /* SSI ABS ENCODER */) {
     int data_rate, number_of_multiturn_bits, number_of_singleturn_bits;
     bool inverted_polarity;
